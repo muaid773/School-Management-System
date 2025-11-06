@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from core.models import Teacher, Subject, Student, Grade, Month
 
@@ -77,3 +78,10 @@ def edit_grade(request, student_id, subject_id, month_id):
         'monthname': month.name,
     })
         
+=======
+from django.shortcuts import render
+from .models import Teacher
+# Create your views here.
+def teachers(request):
+    return render(request, 'teachers_index.html', {"teachers":Teacher.objects.all()})
+>>>>>>> 6fc7f65ce294a700896ae8fa57defdb07d3dc74a

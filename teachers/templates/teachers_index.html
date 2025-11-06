@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}قائمة مدرسين{% endblock %}
+{% load static %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">{% endblock extra_head%}
+{% block content %}
+
+<h2>جدول المدرسين</h2>
+<table>
+    <thead>
+        <tr>
+            <th>رقم المعرف</th>
+            <th>الاسم</th>
+            <th>رقم الهاتف</th>
+            <th>المادة</th>
+            <th>نشط</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{teacher.teacher_id}}</td>
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.phone}}</td>
+            <td>{{teacher.subject}}</td>
+            <td>
+                {% if teacher.is_active %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">لاتوجد بيانات مدرسين مسجلة.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

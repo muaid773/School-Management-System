@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}قائمة الطلاب{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">{% endblock extra_head%}
+{% block content %}
+<h2>📊 جدول درجات الطلاب</h2>
+
+<a href="http://127.0.0.1:8000/students/" class="btn">عرض جدول الطلاب</a>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>الاسم</th>
+                <th>Quran</th>
+                <th>Islamic</th>
+                <th>Arabic</th>
+                <th>Math</th>
+                <th>Physics</th>
+                <th>Chemistry</th>
+                <th>Biology</th>
+                <th>English</th>
+                <th>Behavior</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>
+                <td data-label="الاسم">{{ grade.student.name }}</td>
+                <td data-label="Quran">{{ grade.quran }}</td>
+                <td data-label="Islamic">{{ grade.islamic }}</td>
+                <td data-label="Arabic">{{ grade.arabic }}</td>
+                <td data-label="Math">{{ grade.math }}</td>
+                <td data-label="Physics">{{ grade.physics }}</td>
+                <td data-label="Chemistry">{{ grade.chemistry }}</td>
+                <td data-label="Biology">{{ grade.biology }}</td>
+                <td data-label="English">{{ grade.english }}</td>
+                <td data-label="Behavior">{{ grade.behavior }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="10">لا توجد درجات مسجلة.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
