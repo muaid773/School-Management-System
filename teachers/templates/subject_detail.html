@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="dashboard-container">
+  <h2>درجات الطلاب</h2>
+  
+
+  <h3 style="text-align: center; margin-bottom: 20px;">درجات مادة ({{subjectname}})</h3>
+  <ul class="subject-list">
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>الأسم</th>
+                {% for head in heads %}
+                    <th>{{head}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{row.0}}</td>
+                    {% for grade in row|slice:"1:"%}
+                        <td><a href="/teachers/edit_grade/{{grade.grade_fo_student.id}}/{{grade.grade_fo_subject.id}}/{{grade.month.id}}">{{grade.value}}</a></td>
+                        
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

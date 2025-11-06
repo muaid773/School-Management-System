@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}تعديل الدرجة{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>تعديل درجة الطالب: {{ studentname }}</h2>
+
+    <tr><td>{{subjectname}}</td> <td>{{monthname}}</td></tr>
+
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-col">
+                {{ form.value.label_tag }}
+                {{ form.value }}
+                {{ form.value.errors }}
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn-primary" type="submit">حفظ التعديلات</button>
+            <a class="btn-secondary" href="{% url 'subject_detail' subject_id %}">إلغاء</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+# Ignore local secrets and virtual env
+.env
+.env.local
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django staticfiles collected
+staticfiles/

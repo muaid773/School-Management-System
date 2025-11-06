@@ -1,0 +1,133 @@
+/* forms.css */
+
+/* حاوية الفورم */
+.form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 50px;
+  box-shadow: 0 6px 18px rgba(23, 27, 34, 0.08);
+  border: 1px solid rgba(23, 27, 34, 0.04);
+}
+
+/* عناوين الحقول */
+.form-container h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+/* تنسيق الحقول العامة */
+.form-container label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+}
+
+/* مدخلات النص والبريد والتاريخ والاختيارات */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="date"],
+.form-container input[type="intger"],
+.form-container select,
+.form-container input[type="file"],
+.form-container .django-select, /* إن كنت تستعمل ويدجت مخصص */
+.form-container textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  color: #111827;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+/* حالة التركيز */
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.06);
+}
+
+/* أخطاء الحقول */
+.form-container .errorlist {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* تخطيط الصفوف */
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.form-col {
+  flex: 1 1 48%;
+  min-width: 220px;
+}
+
+/* عرض الصورة المصغرة */
+.form-photo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.form-photo img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e6e6f0;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.04);
+}
+
+/* أزرار */
+.btn-primary {
+  background: linear-gradient(180deg,#4f46e5,#4338ca);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(79,70,229,0.12);
+}
+.btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-secondary:hover { background: #eceff3; }
+
+/* مسافات عامة */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 767px) {
+  .form-col { flex-basis: 100%; }
+  .form-photo img { width: 100px; height: 100px; }
+}

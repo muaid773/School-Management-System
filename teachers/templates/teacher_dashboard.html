@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}لوحة المدرس{% endblock %}
+{% block content %}
+
+<style>
+  .dashboard-container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .dashboard-container h2 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+  }
+
+  .dashboard-container p {
+    text-align: center;
+    color: #374151;
+    margin-bottom: 30px;
+  }
+
+  .subject-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .subject-list li {
+    margin-bottom: 15px;
+    animation: slideUp 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  .subject-list li:nth-child(1) { animation-delay: 0.1s; }
+  .subject-list li:nth-child(2) { animation-delay: 0.2s; }
+  .subject-list li:nth-child(3) { animation-delay: 0.3s; }
+  .subject-list li:nth-child(4) { animation-delay: 0.4s; }
+
+  .subject-link {
+    display: block;
+    padding: 14px 18px;
+    background-color: #f3f4f6;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #1f2937;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .subject-link:hover {
+    background-color: #e0e7ff;
+    transform: translateY(-3px);
+  }
+
+  .no-subjects {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="dashboard-container">
+  <h2>مرحباً {{ teacher.name }}</h2>
+  <p>هذه هي صفحتك الشخصية كمدرس.</p>
+
+  <h3 style="text-align: center; margin-bottom: 20px;">المواد التي تقوم بتدريسها:</h3>
+  <ul class="subject-list">
+    {% for subject in subjects %}
+      <li>
+        <a href="{% url 'subject_detail' subject.id %}" class="subject-link">
+          {{ subject.name }} – {{ subject.classroom.name }}
+        </a>
+      </li>
+    {% empty %}
+      <li class="no-subjects">لا توجد مواد مرتبطة بهذا المدرس.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

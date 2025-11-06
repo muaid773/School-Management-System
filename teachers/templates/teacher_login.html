@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}تسجيل دخول المدرس{% endblock %}
+{% block content %}
+
+<style>
+  .login-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1f2937;
+  }
+
+  .login-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #374151;
+  }
+
+  .login-container select,
+  .login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .login-container select:focus,
+  .login-container input:focus {
+    outline: none;
+    box-shadow: 0 0 8px #2563eb;
+  }
+
+  .login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-container button:hover {
+    background-color: #1d4ed8;
+  }
+
+  .login-container p.or-text {
+    text-align: center;
+    margin: 10px 0;
+    color: #6b7280;
+  }
+
+  .message {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    animation: bounceIn 0.6s ease;
+  }
+
+  .error-message {
+    color: #dc2626;
+  }
+
+  .success-message {
+    color: #16a34a;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+</style>
+
+<div class="login-container">
+  <h2>تسجيل دخول المدرس</h2>
+
+  <form method="post" action="{% url 'verify_teacher' %}">
+    {% csrf_token %}
+
+    <label for="teacher_select">اختر اسمك من القائمة:</label>
+    <select name="teacher_id" id="teacher_select">
+      <option value="">-- اختر مدرساً --</option>
+      {% for teacher in teachers %}
+        <option value="{{ teacher.teacher_id }}">{{ teacher.name }}</option>
+      {% endfor %}
+    </select>
+
+    <p class="or-text">أو</p>
+
+    <input type="text" name="manual_id" placeholder="أدخل المعرف مباشرة">
+
+    <button type="submit">دخول</button>
+  </form>
+
+  {% if error %}
+    <p class="message error-message">{{ error }}</p>
+  {% endif %}
+</div>
+
+{% endblock %}

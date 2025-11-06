@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}جدول الدرجات{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock extra_head %}
+
+{% load custom_tags %}
+{% block content %}
+
+<!-- Profile component -->
+<section class="profile-section" aria-label="معلومات الطالب">
+  <div class="profile-container">
+    <div class="profile-avatar">
+      {% if student.photo %}
+        <img src="{{ student.photo.url }}" alt="صورة {{ student.full_name }}">
+      {% else %}
+        <img src="{% static 'images/default_avatar.png' %}" alt="صورة افتراضية">
+      {% endif %}
+    </div>
+
+    <div class="profile-main">
+      <div class="profile-row">
+        <h2 class="profile-name">{{ student.full_name }}</h2>
+        <div class="profile-actions">
+          <a href="{% url 'student_edit' student.student_id %}" class="btn btn-outline">تعديل</a>
+          <a href="{% url 'students_table' student.classroom.order %}" class="btn">رجوع إلى الطلاب</a>
+        </div>
+      </div>
+
+      <ul class="profile-meta">
+        <li><span class="meta-label" style="color: rgb(0, 0, 0);">الأسم</span><span class="meta-value" style="color: rgb(0, 0, 0);">{{ student.name }}</span></li>
+        <li><span class="meta-label">تاريخ الميلاد</span><span class="meta-value" style="color: rgb(0, 205, 241);">{{ student.date_of_birth }}</span></li>
+        <li><span class="meta-label">الصف</span><span class="meta-value" style="color: rgb(0, 205, 241);">{{ student.classroom.name }}</span></li>
+      </ul>
+
+      <div class="profile-stats" role="group" aria-label="ملخص الطالب">
+        <div class="stat">
+          <div class="stat-value">{{ rows|length }}</div>
+          <div class="stat-label">مواد</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">{{ months|length }}</div>
+          <div class="stat-label">شهور</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">%{{ allreat|default:"-" }}</div>
+          <div class="stat-label">المعدل</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2>درجات الطالب</h2>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>المادة</th>
+        {% for month in months %}
+          <th>{{ month.name }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.subject }}</td>
+          {% for month in months %}
+            <td>{{ row|get_item:month.name }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

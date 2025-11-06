@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}الفصول{% endblock %}
+{% load static %}
+{% block content %}
+<h2 style="text-align: center; margin-top: 20px;">اللوحة العامة</h2>
+
+<style>
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.3);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.card a {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card small {
+  display: block;
+  margin-top: 12px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+}
+</style>
+
+<div class="dashboard-cards">
+  {% for classrom in classes %}
+  <div class="card">
+    <h3>{{ classrom.name }}</h3>
+    <a href="{% url 'students_table' classrom.order %}">عرض الطلاب</a>
+    <small>مستوى الفصل {{ classrom.order|default:"0" }}</small>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

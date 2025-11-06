@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}تعديل بيانات الطالب{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+</style>
+<div class="form-container">
+  <h2>تعديل بيانات الطالب: {{ student.name }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-col">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        {{ form.name.errors }}
+      </div>
+    </div>
+
+    <!-- كرر نفس النموذج للصفوف الأخرى -->
+    <div class="form-row mt-3">
+      <div class="form-col">
+        {{ form.email.label_tag }}
+        {{ form.email}}
+        {{ form.email.errors }}
+      </div>
+      <div class="form-col">
+        {{ form.date_of_birth.label_tag }}
+        {{ form.date_of_birth}}
+        {{ form.date_of_birth.errors }}
+      </div>
+    </div>
+
+    <div class="form-row mt-3">
+        <div class="form-col">
+            {{ form.classroom.label_tag }}
+            {{ form.classroom }}
+            {{ form.classroom.errors }}
+        </div>
+    </div>
+
+    <div class="form-row mt-3">
+      <div class="form-col">
+        {{ form.photo.label_tag }}
+        {{ form.photo }}
+        {{ form.photo.errors }}
+      </div>
+      <div class="form-col form-photo">
+        {% if student.photo %}
+          <img src="{{ student.photo.url }}" alt="صورة الطالب">
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-primary" type="submit">حفظ التعديلات</button>
+      <a class="btn-secondary" href="{% url 'profile' student.student_id %}">إلغاء</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

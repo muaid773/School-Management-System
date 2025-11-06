@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}قائمة الطلاب{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">{% endblock extra_head%}
+{% block content %}
+
+<h2>
+  {% if classroom %}
+    الطلاب في المستوى: {{ classroom.order }} - {{ classroom.name }}
+  {% else %}
+    لا يوجد فصل بهذا المستوى
+  {% endif %}
+</h2>
+<a href="http://127.0.0.1:8000/#" class="btn">عرض درجات الطلاب</a>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>الرقم التعريفي</th>
+                <th>اسم الطالب</th>
+                <th>العمر</th>
+                <th>الفصل</th>
+                <th>البريد الإلكتروني</th>
+                <th>رقم الهاتف</th>
+                <th>العنوان</th>
+                <th>تاريخ التسجيل</th>
+                <th>نشط</th>
+                <th>المزيد</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td data-label="الرقم التعريفي">{{ student.student_id }}</td>
+                <td data-label="اسم الطالب">{{ student.name }}</td>
+                <td data-label="العمر">{{ student.age }}</td>
+                <td data-label="الفصل">{{ student.get_grade_display }}</td>
+                <td data-label="البريد الإلكتروني">{{ student.email|default:"-" }}</td>
+                <td data-label="رقم الهاتف">{{ student.phone|default:"-" }}</td>
+                <td data-label="العنوان">{{ student.address|default:"-" }}</td>
+                <td data-label="تاريخ التسجيل">{{ student.enrollment_date }}</td>
+                <td data-label="نشط">                
+                    {% if student.is_active %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+                <td ><a href="{% url 'profile' student.student_id %}">GET MORE</a></td>
+
+            </tr>
+            {% empty %}
+            <tr><td colspan="9">لا توجد بيانات طلاب مسجلة.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
