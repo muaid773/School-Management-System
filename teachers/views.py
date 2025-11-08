@@ -86,36 +86,43 @@ def edit_grade(request, student_id, subject_id, month_id):
 
 
 
+
+from django.db import transaction
 def edit_all_grades(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     subjects = student.classroom.subjects_by_classroom.all()
     
-    # كل الدرجات الخاصة بالطالب مع select_related بالحقل الصحيح
-    grades = Grade.objects.filter(grade_fo_student=student).select_related('month', 'grade_fo_subject')
+    # جميع الأشهر (العام لجميع الصفوف)
+    months = Month.objects.all().order_by('order')
     
-    # قائمة الأشهر المستخدمة ككائنات Month
-    months = sorted({g.month for g in grades}, key=lambda m: m.id)
+    # إنشاء أي grade ناقص لكل طالب × شهر × مادة
+    with transaction.atomic():
+        for month in months:
+            for sub in subjects:
+                Grade.objects.get_or_create(
+                    grade_fo_student=student,
+                    month=month,
+                    grade_fo_subject=sub,
+                    defaults={'value': 0}
+                )
+    
+    # إعادة جلب جميع الدرجات بعد الإنشاء
+    grades = Grade.objects.filter(grade_fo_student=student).select_related('month', 'grade_fo_subject').order_by('month__id', 'grade_fo_subject__id')
     
     # formset جاهز لكل الدرجات
     GradeFormSet = modelformset_factory(Grade, form=forms.GradeForm, extra=0)
     
     if request.method == 'POST':
-        formset = GradeFormSet(request.POST, request.FILES, queryset=grades)
+        formset = GradeFormSet(request.POST, queryset=grades)
         if formset.is_valid():
             formset.save()
             return redirect('edit_all_grade', student_id=student.id)
     else:
         formset = GradeFormSet(queryset=grades)
     
-    # تجهيز dict لتسهيل الوصول داخل القالب
-    # تجهيز dict مع key كسلسلة
-    grade_dict = {f"{g.month.id}-{g.grade_fo_subject.id}": g for g in grades}
-
-
     return render(request, 'edit_all_grades.html', {
         'student': student,
         'formset': formset,
         'subjects': subjects,
         'months': months,
-        'grade_dict': grade_dict,
     })

@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tags %}
 
 {% block title %}تعديل الدرجات{% endblock %}
 
 {% block content %}
 <h2>تعديل درجات الطالب: {{ student.name }}</h2>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST">
     {% csrf_token %}
     {{ formset.management_form }}
 
@@ -26,9 +25,9 @@
                 <td>{{ month.name }}</td>
                 {% for sub in subjects %}
                     <td>
-                        {% for form in formset %}
+                        {% for form in formset.forms %}
                             {% if form.instance.month.id == month.id and form.instance.grade_fo_subject.id == sub.id %}
-                                {{ form.value }}
+                                {{form}}
                             {% endif %}
                         {% endfor %}
                     </td>
@@ -37,7 +36,6 @@
             {% endfor %}
         </tbody>
     </table>
-
 
     <div style="margin-top:20px;">
         <button type="submit">حفظ</button>
