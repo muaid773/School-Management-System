@@ -7,5 +7,17 @@
 __pycache__/
 *.pyc
 
-# Django staticfiles collected
-staticfiles/
+
+
+# SQLite database files
+*.db
+*.sqlite3
+
+
+
+# VSCode settings (اختياري)
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db

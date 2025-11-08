@@ -4,6 +4,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f4f6f9;
     direction: rtl;
+
 }
 
 /* 🔷 Navbar علوي */
@@ -24,6 +25,7 @@ body {
 
 .top-nav a {
     color: white;
+    padding: 5px 10px;
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
@@ -31,7 +33,11 @@ body {
 }
 
 .top-nav a:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 3px 20px rgba(255, 1, 221, 0.226);
     color: #1abc9c;
+    background-color: rgba(198, 235, 223, 0.151);
+    border-radius: 29px;
 }
 
 /* 📋 Sidebar */
@@ -41,7 +47,7 @@ body {
 }
 
 .sidebar {
-    width: 220px;
+    width: 15%;
     background: #34495e;
     color: white;
     padding: 15px 10px;
@@ -53,7 +59,7 @@ body {
 }
 
 .sidebar.collapsed {
-    width: 70px;
+    width: 5%;
 }
 
 /* زر القائمة (هامبرغر) */
@@ -64,8 +70,8 @@ body {
     background: #2c3e50;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
-    margin: 10px auto 20px;
+    /* cursor: pointer;
+    margin: 10px auto 20px; */
     box-shadow: 0 6px 16px rgba(0,0,0,0.25);
     transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     display: flex;
@@ -154,3 +160,8 @@ body {
     padding: 28px;
     background: #fff;
 }
+.main-content {
+    flex-grow: 1;
+    transition: margin 0.3s ease;
+}
+/* تستتشستن */

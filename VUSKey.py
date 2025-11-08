@@ -13,9 +13,10 @@ After running, a `.env` file will be created or updated with the variable
 
 import re
 import os
-from django.core.management.utils import get_random_secret_key
+import random
+import string
 
-ENV_PATH = ".env"
+SETTING_PATH = "_Schoolmuaid_/settings.py"
 
 
 def write_env_key(path: str, key: str):
@@ -25,27 +26,36 @@ def write_env_key(path: str, key: str):
         with open(path, "r", encoding="utf-8") as f:
             lines = f.read().splitlines()
 
-    pattern = re.compile(r'^DJANGO_SECRET_KEY\s*=')
+    pattern = re.compile(r'SECRET_KEY=')
     replaced = False
     for i, line in enumerate(lines):
         if pattern.match(line):
-            lines[i] = f'DJANGO_SECRET_KEY={key}'
+            print("Maybe SECRET_KEY variable is alrey exisit")
+            choice = input("Do you want to continue[Y/N]? ").upper()
+            if choice == "Y":
+                lines[i] = f"SECRET_KEY='{key}'"
+                replaced = True
+                print(f"✅ Change is successful in line {i+1}\n      file:{path}")
+                print(f"NEW LINE:\n    SECRET_KEY='{key}'\n")
+            else:
+                print(f"Canceled...")
             replaced = True
             break
 
     if not replaced:
-        lines.append(f'DJANGO_SECRET_KEY={key}')
+        lines.append(f"SECRET_KEY='{key}'")
+        print(f"✅ Change is successful in last line\n      file:{path}")
+        print(f"NEW LINE:\n    SECRET_KEY='{key}'\n")
 
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
 
 def main():
-    new_key = get_random_secret_key()
-    write_env_key(ENV_PATH, new_key)
-    print("✅ Generated a new DJANGO_SECRET_KEY and wrote it to .env")
-    print("   - .env file path:", os.path.abspath(ENV_PATH))
-    print("   - Next: ensure .env is in .gitignore and restart your dev server.")
+
+    new_key = ''.join(random.choices("!#$%&()*+,-./:;<=>?@[\]^_{|}" + string.ascii_letters + string.digits, k=50))
+    write_env_key(SETTING_PATH, new_key)
+
 
 
 if __name__ == '__main__':

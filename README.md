@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## مشروع: Schoolmuaid (نسخة MVP)
 
 ملف README هذا يصف النسخة الحالية من المشروع — Minimum Viable Product (MVP). المشروع مبني باستخدام Django ويهدف لإدارة بيانات المدرسة (طلاب، مدرسين، لوحة تحكم، إلخ).
@@ -179,32 +178,3 @@ __pycache__/
 ---
 
 إذا رغبت، أستطيع: إنشاء `requirements.txt` تلقائياً بعد تجميع الحزم المستخدمة، فصل إعدادات البيئات، أو كتابة ملف `CONTRIBUTING.md` صغير يشرح قواعد الاستفادة من المشروع. أي جزء تريده أنفذه الآن؟
-=======
-# 🏫 School Management System
-
-A comprehensive School Management System built with **Django**, designed to streamline school operations, manage student records, track attendance, and facilitate communication between teachers, students, and administrators.
-
-## 🚀 Features
-
-- Student registration and management  
-- Teacher profiles and subject assignments  
-- Attendance tracking  
-- Class scheduling  
-- Dashboard for administrators  
-- Secure login system  
-- Static and template-based frontend
-
-## 🛠️ Tech Stack
-
-- **Backend**: Django (Python)
-- **Database**: SQLite (default, can be switched to PostgreSQL or MySQL)
-- **Frontend**: HTML, CSS, Bootstrap (via Django templates)
-- **Authentication**: Django's built-in auth system
-
-## 📦 Installation
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/muaid773/School-Management-System.git
-cd School-Management-System
->>>>>>> 6fc7f65ce294a700896ae8fa57defdb07d3dc74a

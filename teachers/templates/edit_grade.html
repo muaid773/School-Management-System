@@ -14,12 +14,17 @@
     <tr><td>{{subjectname}}</td> <td>{{monthname}}</td></tr>
 
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-row">
             <div class="form-col">
                 {{ form.value.label_tag }}
                 {{ form.value }}
+                {{ form.value.errors }}
+            </div>
+            <div class="form-col">
+                {{ form.value.label_tag }}
+                {{ form.grade_fo_subject }}
                 {{ form.value.errors }}
             </div>
         </div>

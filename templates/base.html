@@ -14,11 +14,7 @@
         <div class="logo">📚 Schoolum</div>
         <nav class="top-nav">
             <a href="/">الرئيسية</a>
-<<<<<<< HEAD
             <a href="/students/">الفصول</a>
-=======
-            <a href="/students/">الطلاب</a>
->>>>>>> 6fc7f65ce294a700896ae8fa57defdb07d3dc74a
             <a href="/admin/">الإدارة</a>
         </nav>
     </header>
@@ -42,7 +38,7 @@
         </aside>
 
         <!-- ✅ محتوى الصفحة الفرعية -->
-        <main class="main-content">
+        <main class="main-content", id="main_content">
             {% block content %}
             <!-- محتوى افتراضي -->
             {% endblock %}
@@ -53,8 +49,12 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const toggle = document.getElementById('menuToggle');
+            const main_content = document.getElementById('main_content');
             sidebar.classList.toggle('collapsed');
+            main_content.classList.toggle('collapsed');
+
             toggle.classList.toggle('active');
+            main_content.classList.toggle('active');
         }
     </script>
 </body>

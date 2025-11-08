@@ -4,7 +4,7 @@ Django==5.2.5
 Pillow>=9.0.0
 
 # Optional/helpful tools for local development (uncomment to use)
-python-dotenv>=0.21.0    # load .env files into environment (useful for local secrets)
+#python-dotenv>=0.21.0    # load .env files into environment (useful for local secrets)
 # django-environ>=0.9.0    # alternative env/settings management
 
 # To generate this file after installing packages locally, run:
