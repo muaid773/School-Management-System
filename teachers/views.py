@@ -86,84 +86,36 @@ def edit_grade(request, student_id, subject_id, month_id):
 
 
 
-"""def edit_all_grades(request, student_id):
+def edit_all_grades(request, student_id):
     student = get_object_or_404(Student, id=student_id)
-    grades = Grade.objects.filter(grade_fo_student=student)
+    subjects = student.classroom.subjects_by_classroom.all()
+    
+    # كل الدرجات الخاصة بالطالب مع select_related بالحقل الصحيح
+    grades = Grade.objects.filter(grade_fo_student=student).select_related('month', 'grade_fo_subject')
+    
+    # قائمة الأشهر المستخدمة ككائنات Month
+    months = sorted({g.month for g in grades}, key=lambda m: m.id)
+    
+    # formset جاهز لكل الدرجات
     GradeFormSet = modelformset_factory(Grade, form=forms.GradeForm, extra=0)
+    
     if request.method == 'POST':
         formset = GradeFormSet(request.POST, request.FILES, queryset=grades)
-        print("\n\n",formset,"\n\n",)
-        print(formset.is_valid())
         if formset.is_valid():
             formset.save()
-            return redirect('edit_all_grades', student_id=student.id)
+            return redirect('edit_all_grade', student_id=student.id)
     else:
         formset = GradeFormSet(queryset=grades)
+    
+    # تجهيز dict لتسهيل الوصول داخل القالب
+    # تجهيز dict مع key كسلسلة
+    grade_dict = {f"{g.month.id}-{g.grade_fo_subject.id}": g for g in grades}
+
 
     return render(request, 'edit_all_grades.html', {
         'student': student,
-        'formset':formset,
-    })
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.db import transaction
-
-def edit_all_grades(request, student_id):
-    student = get_object_or_404(Student, id=student_id)
-    subjects = Subject.objects.all().order_by('id')
-    months = Month.objects.all().order_by('id')
-
-    # تحويل الدرجات إلى dict بشكل يسهل الوصول
-    grades = Grade.objects.filter(grade_fo_student=student)
-    grade_dict = {
-        (g.grade_fo_subject_id, g.month_id): g
-        for g in grades
-    }
-
-    if request.method == 'POST':
-        with transaction.atomic():
-            for subject in subjects:
-                for month in months:
-                    field_name = f"grade_{subject.id}_{month.id}"
-                    value = request.POST.get(field_name)
-                    if value is None or value == "":
-                        continue
-                    value = float(value)
-                    grade_obj = grade_dict.get((subject.id, month.id))
-                    if grade_obj:
-                        grade_obj.value = value
-                        grade_obj.save()
-                    else:
-                        Grade.objects.create(
-                            grade_fo_student=student,
-                            grade_fo_subject=subject,
-                            month=month,
-                            year=student.year if hasattr(student, "year") else 2025,
-                            value=value,
-                        )
-        return redirect('edit_all_grade', student_id=student.id)
-
-    context = {
-        'student': student,
+        'formset': formset,
         'subjects': subjects,
         'months': months,
         'grade_dict': grade_dict,
-    }
-    return render(request, 'edit_all_grades.html', context)
+    })
