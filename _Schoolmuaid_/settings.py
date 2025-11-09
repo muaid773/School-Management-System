@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = 'django-insecure-5%s!)8@q_o1uti43d+*^(nwmnprk6oztf$huwuj4qj0+)3^2c0' #os.environ.get("DJANGO_SECRET_KEY") or "dev-" + get_random_secret_key()
+SECRET_KEY = ''
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY is not set.\nPlease run the VUSKey.py script to generate and set a new SECRET_KEY.")
 
@@ -136,4 +136,3 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECRET_KEY='DG.bYPE?$fomK;rCNPIe\3Oe-/TgVqZZpjm?FX5<MON6<i8W?0'
