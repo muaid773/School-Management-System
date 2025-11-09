@@ -202,7 +202,7 @@ License & Contact
 
 License: MIT (or specify your license)
 
-Contact: muaidali773@example.com
+Contact: muaidali773@gmail.com
 
 
 
