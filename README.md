@@ -60,10 +60,13 @@ cd Schoolmuaid
 
 python -m venv .venv
 # Windows
+```
 .venv\Scripts\activate
+```
 # macOS/Linux
+```
 source .venv/bin/activate
-
+```
 3. Install dependencies
 
 
@@ -73,10 +76,10 @@ pip install -r requirements.txt
 4. Setup database
 
 
-
+```
 python manage.py makemigrations
 python manage.py migrate
-
+```
 5. Create superuser (admin)
 
 
@@ -89,13 +92,13 @@ python manage.py createsuperuser
 
 Option 1: Generate using VUSKey.py
 
-
+```
 python VUSKey.py
-
+```
 Option 2: Set manually in _Schoolmuaid_/settings.py:
 
 
-SECRET_KEY = "your-strong-secret-key"
+```SECRET_KEY = "your-strong-secret-key"```
 
 
 ---
@@ -104,7 +107,7 @@ Running the Project
 
 python manage.py runserver
 
-Open http://127.0.0.1:8000 in your browser.
+Open ```http://127.0.0.1:8000``` in your browser.
 
 
 ---
@@ -122,9 +125,9 @@ MEDIA_ROOT → media/
 
 Collect static files
 
-
+```
 python manage.py collectstatic --noinput
-
+```
 
 ---
 
