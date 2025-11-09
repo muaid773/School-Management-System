@@ -50,10 +50,10 @@ Quick Overview:
 ## Installation & Setup
 
 1. Clone the repository
-`bash
+```bash
 git clone https://github.com/muaid773/School-Management-System.git
 cd Schoolmuaid
-
+```
 2. Create and activate a virtual environment
 
 
