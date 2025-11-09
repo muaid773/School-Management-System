@@ -1,78 +1,41 @@
 {% extends 'base.html' %}
-{% block title %}قائمة الطلاب{% endblock %}
 {% load static %}
+
+{% block extra_head %}
+  <title>اللوحة العامة</title>
+  <link rel="stylesheet" href="{% static 'css/dashboardcards.css' %}">
+{% endblock extra_head %}
+
 {% block content %}
-<h2>اللوحة العامة</h2>
-<style>
-.dashboard-cards {
-  display: flex;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
+<h2 style="text-align: center; margin-top: 20px;">اللوحة العامة</h2>
 
-.card {
-  background: #afcff0;
-  border: 2px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.288);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(132, 0, 255, 0.548);
-}
-
-.card h3 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-  color: #111827;
-}
-
-.card p {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0;
-  color: #2563eb;
-}
-
-.card small {
-  color: #6b7280;
-}
-
-</style>
 <div class="dashboard-cards">
-
-  <!-- بطاقة عدد الطلاب -->
   <div class="card">
     <h3>👩‍🎓 عدد الطلاب</h3>
     <p>{{ stats.students_total|default:"0" }}</p>
     <small>طلاب جدد اليوم: {{ stats.students_new_today|default:"0" }}</small>
   </div>
 
-  <!-- بطاقة عدد المعلمين -->
   <div class="card">
     <h3>👨‍🏫 عدد المعلمين</h3>
     <p>{{ stats.teachers_total|default:"0" }}</p>
     <small>نشطين: {{ stats.teachers_active|default:"0" }}</small>
   </div>
 
-  <!-- بطاقة عدد المواد -->
   <div class="card">
     <h3>📚 عدد المواد</h3>
     <p>{{ stats.courses_total|default:"0" }}</p>
     <small>مواد فعالة: {{ stats.courses_active|default:"0" }}</small>
   </div>
 
-  <!-- بطاقة الحضور -->
   <div class="card">
     <h3>✅ الحضور اليوم</h3>
     <p>{{ stats.attendance_today_percent|default:"0" }}%</p>
     <small>حضر: {{ stats.attended_count|default:"0" }} / {{ stats.expected_count|default:"0" }}</small>
   </div>
-
 </div>
+
+
 
 {% endblock content %}

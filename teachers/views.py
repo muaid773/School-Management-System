@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from core.models import Teacher, Subject, Student, Grade, Month
 from . import forms
-from django.forms import modelformset_factory, formset_factory
+from django.forms import modelformset_factory
+from django.db import transaction
 
 
 def teacher_login_view(request):
@@ -11,6 +12,15 @@ def teacher_login_view(request):
 def verify_teacher_view(request):
     if request.method == 'POST':
         teacher_id = request.POST.get('teacher_id') or request.POST.get('manual_id')
+
+        # تحقق من أن المعرّف موجود فعلاً
+        if not teacher_id:
+            teachers = Teacher.objects.all()
+            return render(request, 'teacher_login.html', {
+                'teachers': teachers,
+                'error': 'الرجاء اختيار مدرس أو إدخال المعرف أولاً.'
+            })
+
         try:
             teacher = Teacher.objects.get(teacher_id=teacher_id)
             return redirect('teacher_dashboard', teacher_id=teacher.teacher_id)
@@ -20,7 +30,7 @@ def verify_teacher_view(request):
                 'teachers': teachers,
                 'error': 'المعرف غير صحيح أو غير موجود.'
             })
-        
+
 
 def teacher_dashboard_view(request, teacher_id):
     teacher = get_object_or_404(Teacher, teacher_id=teacher_id)
@@ -87,7 +97,6 @@ def edit_grade(request, student_id, subject_id, month_id):
 
 
 
-from django.db import transaction
 def edit_all_grades(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     subjects = student.classroom.subjects_by_classroom.all()
@@ -116,7 +125,7 @@ def edit_all_grades(request, student_id):
         formset = GradeFormSet(request.POST, queryset=grades)
         if formset.is_valid():
             formset.save()
-            return redirect('edit_all_grade', student_id=student.id)
+            return redirect('edit_all_grades', student_id=student.id)
     else:
         formset = GradeFormSet(queryset=grades)
     

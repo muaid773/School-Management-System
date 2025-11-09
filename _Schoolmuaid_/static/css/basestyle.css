@@ -165,3 +165,13 @@ body {
     transition: margin 0.3s ease;
 }
 /* تستتشستن */
+
+
+/* =========================
+   الوضع الليلي (تلقائي)
+   ========================= */
+@media (prefers-color-scheme: dark){
+    .content {
+        background: #50637c;
+    }
+}

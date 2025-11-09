@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}تسجيل دخول المدرس{% endblock %}
-{% block content %}
+{% load static %}
 
+{% block extra_head %}
+<title>تسجل دخول مدرس</title>
+<link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">
 <style>
   .login-container {
     max-width: 500px;
@@ -92,7 +94,10 @@
     100% { transform: scale(1); }
   }
 </style>
+{% endblock extra_head %}
 
+
+{% block content %}
 <div class="login-container">
   <h2>تسجيل دخول المدرس</h2>
 
@@ -106,7 +111,7 @@
         <option value="{{ teacher.teacher_id }}">{{ teacher.name }}</option>
       {% endfor %}
     </select>
-
+    
     <p class="or-text">أو</p>
 
     <input type="text" name="manual_id" placeholder="أدخل المعرف مباشرة">
@@ -118,5 +123,40 @@
     <p class="message error-message">{{ error }}</p>
   {% endif %}
 </div>
+
+
+
+
+<h2>جدول المدرسين</h2>
+<table>
+    <thead>
+        <tr>
+            <th>رقم المعرف</th>
+            <th>الاسم</th>
+            <th>رقم الهاتف</th>
+            <th>المادة</th>
+            <th>نشط</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{teacher.teacher_id}}</td>
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.phone}}</td>
+            <td>{{teacher.subject}}</td>
+            <td>
+                {% if teacher.is_active %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">لاتوجد بيانات مدرسين مسجلة.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

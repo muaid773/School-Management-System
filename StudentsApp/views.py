@@ -8,7 +8,7 @@ def students_index(request):
     return render(request, 'students_index.html', {'classes': classes})
 
 
-def students(request, level_order):
+def classroom(request, level_order):
     classroom = ClassRoom.objects.filter(order=level_order).first()
     if not classroom:
         return render(request, 'student_table.html', {'students': [], 'classroom': None})

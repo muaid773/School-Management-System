@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}تعديل الدرجة{% endblock %}
 
 {% block extra_head %}
+    <title>تعديل درجة الطالب: {{ studentname }}</title>
   <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
 {% endblock extra_head %}
 

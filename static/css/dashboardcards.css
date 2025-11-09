@@ -1,0 +1,137 @@
+/* =========================
+   إعدادات عامة للألوان والخطوط
+   ========================= */
+:root {
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --card-radius: 14px;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  --card-primary: #2563eb;
+  --card-text: #1f2937;
+  --card-muted: #6b7280;
+  --card-icon-bg: #eff6ff;
+}
+
+/* =========================
+   تخطيط الحاوية العامة
+   ========================= */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
+  margin-top: 24px;
+  padding: 10px;
+}
+
+/* =========================
+   النمط العام للبطاقة
+   ========================= */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 20px 18px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--card-primary);
+}
+
+/* =========================
+   العنوان
+   ========================= */
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--card-text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: capitalize;
+}
+
+/* =========================
+   الأرقام / القيم
+   ========================= */
+.card p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--card-primary);
+  margin: 0 0 10px 0;
+}
+
+/* =========================
+   النص الصغير (معلومات فرعية)
+   ========================= */
+.card small {
+  font-size: 0.9rem;
+  color: var(--card-muted);
+}
+
+/* =========================
+   الأزرار أو الروابط داخل البطاقة
+   ========================= */
+.card a {
+  display: inline-block;
+  text-align: center;
+  background-color: var(--card-primary);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  margin-top: 8px;
+}
+
+.card a:hover {
+  background-color: #1e40af;
+}
+
+/* =========================
+   تحسينات خاصة لبطاقات الإحصاءات
+   ========================= */
+.card p + small {
+  margin-top: 4px;
+}
+
+/* =========================
+   تحسينات خاصة لبطاقات الفصول
+   ========================= */
+.card a + small {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* =========================
+   الوضع الليلي
+   ========================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #1f2937;
+    --card-border: #374151;
+    --card-text: #f9fafb;
+    --card-muted: #9ca3af;
+    --card-icon-bg: #111827;
+  }
+}
+
+/* =========================
+   تجاوب الهواتف
+   ========================= */
+@media (max-width: 600px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}

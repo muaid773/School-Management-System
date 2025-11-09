@@ -1,180 +1,219 @@
-## مشروع: Schoolmuaid (نسخة MVP)
+# Schoolmuaid - MVP Version
 
-ملف README هذا يصف النسخة الحالية من المشروع — Minimum Viable Product (MVP). المشروع مبني باستخدام Django ويهدف لإدارة بيانات المدرسة (طلاب، مدرسين، لوحة تحكم، إلخ).
+Schoolmuaid is a Django-based school management system for students, teachers, subjects, and admin dashboards.  
+_Current version: Minimum Viable Product (MVP) — core functionality._
 
-### نظرة عامة
+Quick Overview:  
+- Manage students, teachers, and subjects  
+- Admin dashboard for easy control  
+- Built with Django 5.2.x and SQLite  
 
-- الحالة الحالية: MVP — ميزات أساسية للعمل مع الطلاب، المدرسين، ولوحة تحكم إدارية.
-- إطار العمل: Django (تم إنشاء المشروع باستخدام Django 5.2.5).
-- قاعدة البيانات الافتراضية: SQLite (`db.sqlite3`).
-- هيكل التطبيقات الرئيسية الموجودة:
-  - `core` — ملفات منطق عام للمشروع
-  - `StudentsApp` — إدارة بيانات الطلاب (قوالب: `students_index.html`, `profile.html`, ...)
-  - `teachers` — إدارة المدرسين والمواد
-  - `dashboard` — واجهة الإدارة/اللوحة
-
-### متطلبات مبدئية (افتراضات)
-
-- Python 3.8 أو أحدث (يفضّل Python 3.10+).
-- Django 5.2.5 (المشروع أنشئ بهذه النسخة).
-- نظام التشغيل: تعليمات التشغيل الموجودة هنا مخصصة لـ Windows PowerShell.
-
-> ملاحظة: تم إضافة ملف `requirements.txt` أساسي في جذر المشروع يحوي `Django==5.2.5` و `Pillow`.
-
-### خطوات الإعداد والتشغيل (PowerShell) — بعد التعديلات
-
-التعليمات التالية تفترض أن لديك `requirements.txt` في جذر المشروع (موجود بالفعل). سنغطي إعداد بيئة تطوير آمنة محلياً، وضبط `DJANGO_SECRET_KEY` عبر متغير بيئة أو ملف `.env`، ثم تشغيل التطبيق.
-
-1) افتح PowerShell داخل جذر المشروع (مجلد يحتوي `manage.py`).
-
-2) أنشئ بيئة افتراضية وفعلها:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-3) ثبّت الحزم من `requirements.txt`:
-
-```powershell
-pip install -r requirements.txt
-```
-
-ملاحظة: إذا رغبت باستخدام `python-dotenv` لتحميل ملف `.env` المحلي، قم بإلغاء تعليق السطر في `requirements.txt` أو ثبّته مباشرة:
-
-```powershell
-pip install python-dotenv
-```
-
-4) ضبط `SECRET_KEY` (خياران — يفضّل الخيار الأول للإنتاج):
-
-- خيار (A) — عبر متغير بيئة (مفضل للخوادم):
-
-  توليد مفتاح جديد:
-
-  ```powershell
-  python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-  ```
-
-  وضعه كمتحول دائم للمستخدم (أعد فتح PowerShell بعد الأمر):
-
-  ```powershell
-  setx DJANGO_SECRET_KEY "<ضع-المفتاح-هنا>"
-  ```
-
-  أو مؤقتًا للجلسة الحالية:
-
-  ```powershell
-  $env:DJANGO_SECRET_KEY = "<المفتاح>"
-  ```
-
-- خيار (B) — باستخدام ملف `.env` للمطور المحلي (لا تضفه إلى Git):
-
-  أنشئ ملف `.env` في جذر المشروع وأضف:
-
-  ```text
-  DJANGO_SECRET_KEY=your-generated-secret
-  DEBUG=True
-  ```
-
-  وفي بداية `settings.py` (مثال، إن رغبت بتحميل القيم تلقائياً) أضف:
-
-  ```python
-  from dotenv import load_dotenv
-  from django.core.management.utils import get_random_secret_key
-  import os
-
-  load_dotenv()
-
-  SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or "dev-" + get_random_secret_key()
-  ```
-
-  تأكّد أن تضيف `.env` إلى `.gitignore` ولا ترفعه للمستودع.
-
-5) تنفيذ الترحيلات وإنشاء مستخدم أدمن:
-
-```powershell
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-6) تشغيل الخادم المحلي:
-
-```powershell
-python manage.py runserver
-```
-
-7) إدارة الملفات الثابتة والوسائط
-
-- المسارات الافتراضية في `settings.py`:
-  - `STATIC_ROOT` → مجلد `static` في جذر المشروع
-  - `STATICFILES_DIRS` → `/_Schoolmuaid_/static/`
-  - `MEDIA_ROOT` → مجلد `media`
-
-- لنسخ ملفات الستاتيك (بيئة اختبارات أو إنتاج بسيط):
-
-```powershell
-python manage.py collectstatic --noinput
-```
-
-8) إضافة `.gitignore` أساسي (إن لم يكن موجوداً) — تأكد من حجب الأسرار والبيئة الافتراضية:
-
-```
-# Secrets
-.env
-
-# Virtual env
-.venv/
-
-# Python cache
-__pycache__/
-*.pyc
-```
-
-ملاحظات أمان قصيرة:
-- لا تضع `SECRET_KEY` في المستودع العام. إن تم تسريبه، دوّر المفتاح فورًا وأنشئ مفتاح جديد في متغيرات البيئة، ثم احرص على مسح الجلسات إن أردت إجبار إعادة تسجيل الدخول.
-- استخدم `setx` أو إعدادات CI/CD لتمرير المتغيرات الآمنة إلى بيئة الإنتاج.
-
-
-### ملفات/مواقع مهمة في المشروع
-
-- `manage.py` — أدوات الإدارة
-- `_Schoolmuaid_/settings.py` — إعدادات المشروع (قاعدة بيانات، static/media، INSTALLED_APPS)
-- `StudentsApp/` — منطق وقوالب التعامل مع الطلاب
-- `teachers/` — منطق التعامل مع المدرسين
-- `dashboard/` — قوالب وواجهات لوحة التحكم
-- `templates/` — قوالب عامة (بما فيها `base.html`)
-
-### عقدة سريعة للمطور (contract)
-
-- المدخلات: SQLite (`db.sqlite3`) وملفات القوالب والستاتيك في الشجرة الحالية.
-- المخرجات المتوقعة: تطبيق Django يعمل محلياً عبر `runserver` وقابل لتسجيل دخول الأدمن.
-- حالات الخطأ الشائعة: بيئة افتراضية غير مفعلة، Django غير مثبت، أو تعارض إصدارات بايثون/Django.
-
-### حالات الحافة المحتملة
-
-- قاعدة بيانات فارغة (fresh DB) — تأكد من تشغيل `migrate` و `createsuperuser`.
-- ملفات وسائط مفقودة — المجلد `media/students/photos/` موجود لكن قد يكون فارغًا.
-- تعدد الإعدادات للبيئات (dev/prod) — حالياً لا يوجد فصل للبيئات في المشروع.
-
-### كيفية المساهمة
-
-1. أنشئ فرع feature/bugfix محلياً.
-2. أضف تغييرات مع اختبار محلي وتشغيل الترحيلات عند الحاجة.
-3. افتح طلب سحب (pull request) مع وصف واضح، لقطة للشاشة إن وجدت، وقائمة بالخطوات لإعادة إنتاج المشكلة/الميزة.
-
-### خارطة الطريق (اقتراحات لمرحلة ما بعد MVP)
-
-- إضافة ملف `requirements.txt` أو `pyproject.toml` لتثبيت حزم المشروع بدقة.
-- فصل إعدادات التطوير والإنتاج (مثلاً `settings_dev.py`, `settings_prod.py`) مع إدارة أسرار عبر متغيرات بيئة.
-- إضافة اختبارات وحدة/تكامل أساسية وتشغيل CI (GitHub Actions).
-- تحسين صلاحيات المستخدمين، صفحات تقارير، وإمكانية استيراد/تصدير بيانات الطلاب.
-
-### الترخيص والاتصال
-
-أضف هنا نوع الترخيص (مثلاً MIT) ومعلومات التواصل إذا رغبت (البريد الإلكتروني أو issues على المستودع).
+> For full setup, usage, and developer guidance, see the sections below.
 
 ---
 
-إذا رغبت، أستطيع: إنشاء `requirements.txt` تلقائياً بعد تجميع الحزم المستخدمة، فصل إعدادات البيئات، أو كتابة ملف `CONTRIBUTING.md` صغير يشرح قواعد الاستفادة من المشروع. أي جزء تريده أنفذه الآن؟
+## Table of Contents
+
+1. [Project Structure](#project-structure)  
+2. [Prerequisites](#prerequisites)  
+3. [Installation & Setup](#installation--setup)  
+4. [Running the Project](#running-the-project)  
+5. [Static & Media Files](#static--media-files)  
+6. [Important Files & Directories](#important-files--directories)  
+7. [Developer Notes](#developer-notes)  
+8. [Edge Cases](#edge-cases)  
+9. [Contributing](#contributing)  
+10. [License & Contact](#license--contact)  
+11. [References](#references)
+
+---
+
+## Project Structure
+
+- core/ — general utilities and shared logic  
+- StudentsApp/ — student management (templates: students_index.html, profile.html, etc.)  
+- teachers/ — teacher and subject management  
+- dashboard/ — admin dashboard  
+
+---
+
+## Prerequisites
+
+- Python 3.8+ (Python 3.10+ recommended)  
+- Django 5.2.x  
+- SQLite (default database)  
+
+> A requirements.txt is included with Django and Pillow.
+
+---
+
+## Installation & Setup
+
+1. Clone the repository
+`bash
+git clone https://github.com/muaid773/School-Management-System.git
+cd Schoolmuaid
+
+2. Create and activate a virtual environment
+
+
+
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+
+3. Install dependencies
+
+
+
+pip install -r requirements.txt
+
+4. Setup database
+
+
+
+python manage.py makemigrations
+python manage.py migrate
+
+5. Create superuser (admin)
+
+
+
+python manage.py createsuperuser
+
+6. Set SECRET_KEY
+
+
+
+Option 1: Generate using VUSKey.py
+
+
+python VUSKey.py
+
+Option 2: Set manually in _Schoolmuaid_/settings.py:
+
+
+SECRET_KEY = "your-strong-secret-key"
+
+
+---
+
+Running the Project
+
+python manage.py runserver
+
+Open http://127.0.0.1:8000 in your browser.
+
+
+---
+
+Static & Media Files
+
+Paths in settings.py:
+
+STATIC_ROOT → static/
+
+STATICFILES_DIRS → _Schoolmuaid_/static/
+
+MEDIA_ROOT → media/
+
+
+Collect static files
+
+
+python manage.py collectstatic --noinput
+
+
+---
+
+Important Files & Directories
+
+manage.py — Django management commands
+
+_Schoolmuaid_/settings.py — project settings
+
+StudentsApp/ — student app
+
+teachers/ — teacher app
+
+dashboard/ — admin dashboard
+
+templates/ — global templates (base.html included)
+
+
+
+---
+
+Developer Notes
+
+Inputs: SQLite DB, templates, static files
+
+Outputs: Fully functional Django app with admin access
+
+Common pitfalls:
+
+Virtual environment not activated
+
+Django not installed or wrong version
+
+Python version mismatch
+
+
+
+
+---
+
+Edge Cases
+
+Fresh database → always run migrate and createsuperuser
+
+Missing media files → media/students/photos/ may be empty
+
+No dev/prod environment separation currently
+
+
+
+---
+
+Contributing
+
+1. Fork the repository
+
+
+2. Create a branch (git checkout -b feature/your-feature)
+
+
+3. Commit changes (git commit -m "Add feature")
+
+
+4. Push branch (git push origin feature/your-feature)
+
+
+5. Open a Pull Request
+
+
+
+
+---
+
+License & Contact
+
+License: MIT (or specify your license)
+
+Contact: your.email@example.com
+
+
+
+---
+
+References
+
+Django Documentation
+
+SQLite Documentation
+
+Python Documentation
+
+

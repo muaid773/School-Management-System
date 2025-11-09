@@ -1,6 +1,6 @@
 # Requirements for Schoolmuaid (MVP)
 # Primary runtime dependencies
-Django==5.2.5
+Django==5.2.8
 Pillow>=9.0.0
 
 # Optional/helpful tools for local development (uncomment to use)
@@ -9,3 +9,7 @@ Pillow>=9.0.0
 
 # To generate this file after installing packages locally, run:
 # pip freeze > requirements.txt
+
+
+
+

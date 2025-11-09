@@ -21,3 +21,7 @@ __pycache__/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+#auther
+convert_md_to_html.py
+README.html

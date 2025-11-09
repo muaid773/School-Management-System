@@ -9,30 +9,30 @@ def rafing(array : list):
     return newarray
 
 
-def stariting(main_array : list, array : list, emptyvalue: str):
+def stariting(main_array: list, array: list, emptyvalue: str = "-"):
     """
-    تقوم هذه التالد ب عمل تقويم لقاىمة استنادا على القاىمة الي تتم المقارنة بها
-    حيث كل عنصر في القاىمة الثانية سيتم جعل رقم الفهرس مساويا لرقم الفهرس في
-    القاىمة الاولى ويستم تعويض الفراغات بقيمه افتراضيه تحدد وتمرر لدالة\n
-    مثال:
-        **main_array = [1, 2, 3, 4, 5, 6]** 
-            <p>.القاىمة الاول التي سيم المقارنه بها\n
-        **array = [1,3,6]**
-            <p>هذه القاىمة هي التي سيتم سد فراغاتها بقيمه افتراضية</p>\n
-        **resualt = [1, -, 3, -, -, 6]** . هذه هي النتيجه\n
-            حيث ان الشرطه ستكون القيمه الافتراضية التي تسد بها الغراغات\n
-        وبهذا كل عنصر في القالىمة الثانية مقابل لكل عنصر في القاىمة الأولى\n
-    """
-    for grade in array:
-        try:
-            if grade.month.name in main_array:
-                index = main_array.index(grade.month.name)
-                index2 = array.index(grade)
+    تقوم هذه الدالة بمحاذاة قائمة استنادًا إلى قائمة مرجعية.
+    بحيث يتم ترتيب عناصر القائمة الثانية بنفس ترتيب القائمة الأولى،
+    وسدّ الفجوات بقيمة افتراضية.
 
-                if index > index2:
-                    fullindex = index - index2
-                    for _ in range(fullindex):
-                        array.insert(index2, emptyvalue)
-        except:
-            pass
-    return array
+    مثال:
+        main_array = [1, 2, 3, 4, 5, 6]
+        array = [1, 3, 6]
+        الناتج => [1, -, 3, -, -, 6]
+    """
+    # أول عنصر عادة الطالب نفسه
+    student = array[0]
+    grades = array[1:]
+
+    aligned_row = [student]
+
+    # ترتيب القيم حسب main_array
+    for item in main_array:
+        found = None
+        for grade in grades:
+            if hasattr(grade, 'month') and grade.month.name == item:
+                found = grade
+                break
+        aligned_row.append(found if found else emptyvalue)
+
+    return aligned_row

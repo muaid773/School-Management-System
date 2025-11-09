@@ -1,25 +1,26 @@
-/* forms.css */
+/* ================================================
+   Unified Forms & Table Styles (Professional Look)
+   ================================================ */
 
-/* حاوية الفورم */
+/* الحاوية العامة للفورم */
 .form-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 20px auto;
   background: #ffffff;
   border-radius: 10px;
   padding: 20px;
-  margin: 20px 50px;
   box-shadow: 0 6px 18px rgba(23, 27, 34, 0.08);
   border: 1px solid rgba(23, 27, 34, 0.04);
 }
 
-/* عناوين الحقول */
+/* العناوين */
 .form-container h2 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
   color: #1f2937;
 }
 
-/* تنسيق الحقول العامة */
+/* الحقول العامة */
 .form-container label {
   display: block;
   font-weight: 600;
@@ -28,33 +29,39 @@
   font-size: 0.95rem;
 }
 
-/* مدخلات النص والبريد والتاريخ والاختيارات */
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="date"],
-.form-container input[type="intger"],
-.form-container select,
+.form-container input[type="integer"],
 .form-container input[type="file"],
-.form-container .django-select, /* إن كنت تستعمل ويدجت مخصص */
+.form-container select,
 .form-container textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
-  box-sizing: border-box;
   font-size: 0.95rem;
   color: #111827;
-  transition: border-color .12s ease, box-shadow .12s ease;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  min-height: 42px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  display: block;
 }
 
-/* حالة التركيز */
 .form-container input:focus,
 .form-container select:focus,
 .form-container textarea:focus {
   outline: none;
   border-color: #6366f1;
   box-shadow: 0 0 0 4px rgba(99,102,241,0.06);
+}
+
+/* الحقول الطويلة */
+.form-container textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 /* أخطاء الحقول */
@@ -67,18 +74,22 @@
   padding-left: 0;
 }
 
-/* تخطيط الصفوف */
+/* تنسيق الصفوف والأعمدة للفورم */
 .form-row {
   display: flex;
-  gap: 16px;
   flex-wrap: wrap;
-}
-.form-col {
-  flex: 1 1 48%;
-  min-width: 220px;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-/* عرض الصورة المصغرة */
+.form-col {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 260px;
+  box-sizing: border-box;
+}
+
+/* الصورة */
 .form-photo {
   display: flex;
   align-items: center;
@@ -93,7 +104,7 @@
   box-shadow: 0 4px 12px rgba(17, 24, 39, 0.04);
 }
 
-/* أزرار */
+/* الأزرار */
 .btn-primary {
   background: linear-gradient(180deg,#4f46e5,#4338ca);
   color: #fff;
@@ -118,7 +129,6 @@
 }
 .btn-secondary:hover { background: #eceff3; }
 
-/* مسافات عامة */
 .form-actions {
   display: flex;
   gap: 12px;
@@ -126,8 +136,96 @@
   margin-top: 18px;
 }
 
-/* استجابة للشاشات الصغيرة */
+/* ==================================================
+   Table Editing Mode (e.g., Editable Grade Tables)
+   ================================================== */
+
+.table-container {
+  background: #fff;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead th {
+  background: linear-gradient(90deg,#34495e,#2c3e50);
+  color: #fff;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef2f5;
+  vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+  background: #fbfdfe;
+}
+tbody tr:hover {
+  background-color: #eef6ff;
+}
+
+/* الحقول داخل خلايا الجدول */
+td input[type="number"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #fafafa;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 0;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+td input[type="number"]:focus {
+  background-color: #fff;
+  border: 1px solid #007bff;
+  outline: none;
+}
+
+/* رسائل الخطأ داخل الجدول */
+.errorlist {
+  display: block;
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #d9534f;
+  background: #fff;
+  border: 1px solid #f5c2c7;
+  padding: 2px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* خلية تحتوي خطأ */
+td:has(.errorlist) input {
+  border: 1px solid #d9534f;
+  background-color: #fff6f6;
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
 @media (max-width: 767px) {
   .form-col { flex-basis: 100%; }
   .form-photo img { width: 100px; height: 100px; }
+  thead { display: none; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  tr { margin-bottom: 12px; }
+  td { text-align: right; padding-left: 50%; position: relative; }
+  td::before { content: attr(data-label); position: absolute; left: 12px; top: 10px; font-weight: bold; }
 }

@@ -1,104 +1,159 @@
-<<<<<<< HEAD
-/* Table styles for students pages (copied from project-level static) */
+/* =========================
+   تنسيق جداول طلاب بأسلوب مكتبي احترافي
+   ========================= */
 .table-container {
-	background: #fff;
-	padding: 16px;
-	margin-left: 30px;
-	border-radius: 8px;
-	box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-	overflow-x: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  margin-top: 20px;
 }
 
+/* =========================
+   إعداد الجدول العام
+   ========================= */
 table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: 14px;
-	text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  text-align: left;
+  border: 1px solid #e5e7eb;
 }
 
+/* =========================
+   العناوين (رأس الجدول)
+   ========================= */
 thead th {
-	background: linear-gradient(90deg,#34495e,#2c3e50);
-	color: #fff;
-	padding: 10px 12px;
-	text-align: left;
+  background: linear-gradient(90deg, #2563eb, #1e3a8a);
+  color: #ffffff;
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 2px solid #1e3a8a;
+  user-select: none;
 }
 
+/* =========================
+   خلايا الصفوف
+   ========================= */
 tbody td {
-	padding: 10px 12px;
-	border-bottom: 1px solid #eef2f5;
-	vertical-align: middle;
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1f2937;
+  vertical-align: middle;
 }
 
+/* =========================
+   صفوف متناوبة الألوان
+   ========================= */
 tbody tr:nth-child(even) {
-	background: #fbfdfe;
+  background-color: #f9fafb;
 }
 
+/* =========================
+   تأثير تمرير الماوس
+   ========================= */
+tbody tr:hover {
+  background-color: #e8f0fe;
+  transition: background-color 0.2s ease;
+}
+
+/* =========================
+   أزرار داخل الجدول
+   ========================= */
 .btn {
-	display: inline-block;
-	padding: 8px 12px;
-	background: #1abc9c;
-	color: white;
-	text-decoration: none;
-	border-radius: 6px;
-	margin-bottom: 12px;
+  display: inline-block;
+  padding: 8px 14px;
+  background: #2563eb;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.2s ease;
 }
 
+.btn:hover {
+  background: #1d4ed8;
+}
+
+/* =========================
+   الوضع الليلي (تلقائي)
+   ========================= */
+/* @media (prefers-color-scheme: dark) {
+  .table-container {
+    background: #1f2937;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  table {
+    border-color: #c9ccd1;
+  }
+
+  thead th {
+    background: linear-gradient(90deg, #3b82f6, #1e40af);
+    border-bottom-color: #1e3a8a;
+  }
+
+  tbody td {
+    color: #f9fafb;
+    border-bottom: 1px solid #374151;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #111827;
+  }
+
+  tbody tr:hover {
+    background: #1e3a8a;
+  }
+} */
+
+/* =========================
+   تجاوب الجوال
+   ========================= */
 @media (max-width: 720px) {
-	thead { display: none; }
-	table, tbody, tr, td { display: block; width: 100%; }
-	tr { margin-bottom: 12px; }
-	td { text-align: right; padding-left: 50%; position: relative; }
-	td::before { content: attr(data-label); position: absolute; left: 12px; top: 10px; font-weight: bold; }
-}
-=======
->>>>>>> 6fc7f65ce294a700896ae8fa57defdb07d3dc74a
-/* Table styles for students pages */
-.table-container {
-	background: #fff;
-	padding: 16px;
-	border-radius: 8px;
-	box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-	overflow-x: auto;
-}
+  thead {
+    display: none;
+  }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: 14px;
-	text-align: left;
-}
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
 
-thead th {
-	background: linear-gradient(90deg,#34495e,#2c3e50);
-	color: #fff;
-	padding: 10px 12px;
-	text-align: left;
-}
+  tr {
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+  }
 
-tbody td {
-	padding: 10px 12px;
-	border-bottom: 1px solid #eef2f5;
-	vertical-align: middle;
-}
+  td {
+    text-align: right;
+    padding: 10px 14px 10px 50%;
+    position: relative;
+  }
 
-tbody tr:nth-child(even) {
-	background: #fbfdfe;
-}
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    font-weight: 600;
+    color: #374151;
+  }
 
-.btn {
-	display: inline-block;
-	padding: 8px 12px;
-	background: #1abc9c;
-	color: white;
-	text-decoration: none;
-	border-radius: 6px;
-	margin-bottom: 12px;
-}
-
-@media (max-width: 720px) {
-	thead { display: none; }
-	table, tbody, tr, td { display: block; width: 100%; }
-	tr { margin-bottom: 12px; }
-	td { text-align: right; padding-left: 50%; position: relative; }
-	td::before { content: attr(data-label); position: absolute; left: 12px; top: 10px; font-weight: bold; }
+  @media (prefers-color-scheme: dark) {
+    tr {
+      border-color: #374151;
+    }
+    td::before {
+      color: #f9fafb;
+    }
+  }
 }

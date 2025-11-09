@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}لوحة التحكم{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/basestyle.css' %}">
-    {% block extra_head %}{% endblock %}
+    {% block extra_head %}
+    {% endblock %}
 
 </head>
 <body>
@@ -37,12 +38,38 @@
             </ul>
         </aside>
 
+
+
+
+
+
+
+
+
+
+
         <!-- ✅ محتوى الصفحة الفرعية -->
         <main class="main-content", id="main_content">
             {% block content %}
             <!-- محتوى افتراضي -->
             {% endblock %}
         </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     </div>
 
     <script>

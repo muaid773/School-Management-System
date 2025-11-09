@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}جدول الدرجات{% endblock %}
 
 {% block extra_head %}
+  <title>ملف الشخصي</title>
   <link rel="stylesheet" href="{% static 'css/tablestyle.css' %}">
   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock extra_head %}
@@ -25,8 +25,8 @@
       <div class="profile-row">
         <h2 class="profile-name">{{ student.full_name }}</h2>
         <div class="profile-actions">
-          <a href="{% url 'student_edit' student.student_id %}" class="btn btn-outline">تعديل</a>
-          <a href="{% url 'students_table' student.classroom.order %}" class="btn">رجوع إلى الطلاب</a>
+          <a href="{% url 'edit_profile' student.student_id %}" class="btn btn-outline">تعديل</a>
+          <a href="{% url 'classroom' student.classroom.order %}" class="btn">رجوع إلى الطلاب</a>
         </div>
       </div>
 
