@@ -14,27 +14,20 @@
   <div class="card">
     <h3>👩‍🎓 عدد الطلاب</h3>
     <p>{{ students|default:"0" }}</p>
+    <small>نشطين: {{ students_len_active|default:"0" }}</small>
+
   </div>
 
   <div class="card">
     <h3>👨‍🏫 عدد المعلمين</h3>
-    <p>{{ stats.teachers_total|default:"0" }}</p>
-    <small>نشطين: {{ stats.teachers_active|default:"0" }}</small>
+    <p>{{teachers_len|default:"0" }}</p>
+    <small>نشطين: {{ teachers_len_active|default:"0" }}</small>
   </div>
 
   <div class="card">
     <h3>📚 عدد المواد</h3>
-    <p>{{ stats.courses_total|default:"0" }}</p>
-    <small>مواد فعالة: {{ stats.courses_active|default:"0" }}</small>
+    <p>{{ subjects_len|default:"0" }}</p>
   </div>
-
-  <div class="card">
-    <h3>✅ الحضور اليوم</h3>
-    <p>{{ stats.attendance_today_percent|default:"0" }}%</p>
-    <small>حضر: {{ stats.attended_count|default:"0" }} / {{ stats.expected_count|default:"0" }}</small>
-  </div>
-</div>
-
 
 
 {% endblock content %}
