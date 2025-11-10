@@ -3,7 +3,7 @@
 
 {% block extra_head %}
     <title>تعديل درجة الطالب: {{ studentname }}</title>
-  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
 {% endblock extra_head %}
 
 {% block content %}
@@ -20,11 +20,6 @@
             <div class="form-col">
                 {{ form.value.label_tag }}
                 {{ form.value }}
-                {{ form.value.errors }}
-            </div>
-            <div class="form-col">
-                {{ form.value.label_tag }}
-                {{ form.grade_fo_subject }}
                 {{ form.value.errors }}
             </div>
         </div>

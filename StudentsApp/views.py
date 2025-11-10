@@ -1,13 +1,15 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from collections import defaultdict
 from core.models import Student, Grade, ClassRoom, Month
+from . import forms
 
-# Create your views here.
+# Display list of all classrooms
 def students_index(request):
-    classes =  ClassRoom.objects.all()
+    classes = ClassRoom.objects.all()
     return render(request, 'students_index.html', {'classes': classes})
 
 
+# Display students in a specific classroom by its order/level
 def classroom(request, level_order):
     classroom = ClassRoom.objects.filter(order=level_order).first()
     if not classroom:
@@ -16,23 +18,31 @@ def classroom(request, level_order):
     students = Student.objects.filter(classroom=classroom)
     return render(request, 'student_table.html', {'students': students, 'classroom': classroom})
 
+
+# Display detailed profile and grades of a specific student
 def profile(request, student_id):
     student = get_object_or_404(Student, student_id=student_id)
-    student_grades = Grade.objects.filter(grade_fo_student=student)
+    student_grades = Grade.objects.filter(student=student)
 
-    subjects = sorted(set(g.grade_fo_subject for g in student_grades), key=lambda s: s.name)
+    # Get unique subjects and months, sorted by name and order
+    subjects = sorted(set(g.subject for g in student_grades), key=lambda s: s.name)
     months = sorted(set(g.month for g in student_grades), key=lambda m: m.order)
 
-    # حساب معدل الطالب بالنسبة لعدد المواد الي يدرسها وعدد الشهور الي درسها
-    allreat = ( sum(  [gradev.value for gradev in student_grades]  ) / (   (len(months)*len(subjects))*100  ) ) * 100
-    allreat = round(allreat, 2)
+    # Calculate overall student average based on all subjects and months
+    total_grades = sum(grade.value for grade in student_grades)
+    max_total = len(months) * len(subjects) * 100
+    if max_total > 0:
+        allreat = round((total_grades / max_total) * 100, 2)
+    else:
+        allreat = 0
 
-    # بناء جدول جاهز للقالب
+
+    # Build table rows for template
     rows = []
     for subject in subjects:
         row = {'subject': subject}
         for month in months:
-            grade = student_grades.filter(grade_fo_subject=subject, month=month).first()
+            grade = student_grades.filter(subject=subject, month=month).first()
             row[month.name] = grade.value if grade else '—'
         rows.append(row)
 
@@ -40,11 +50,11 @@ def profile(request, student_id):
         'months': months,
         'rows': rows,
         'student': student,
-        'allreat':allreat,
+        'allreat': allreat,
     })
 
-from . import forms
 
+# Edit student information
 def edit_student(request, student_id):
     student = get_object_or_404(Student, student_id=student_id)
 

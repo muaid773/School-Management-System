@@ -38,7 +38,7 @@
                 <tr>
                     <td><a class="namelink" href="{% url 'edit_all_grades' row.0.id %}">{{row.0.name}}</a></td>
                     {% for grade in row|slice:"1:"%}
-                        <td><a href="/teachers/edit_grade/{{grade.grade_fo_student.id}}/{{grade.grade_fo_subject.id}}/{{grade.month.id}}">{{grade.value}}</a></td>
+                        <td><a href="/teachers/edit_grade/{{grade.student.id}}/{{grade.subject.id}}/{{grade.month.id}}">{{grade.value}}</a></td>
                         
                     {% endfor %}
                 </tr>

@@ -4,7 +4,7 @@
 
 /* الحاوية العامة للفورم */
 .form-container {
-  max-width: 900px;
+  max-width: 90%;
   margin: 20px auto;
   background: #ffffff;
   border-radius: 10px;
@@ -36,7 +36,7 @@
 .form-container input[type="file"],
 .form-container select,
 .form-container textarea {
-  width: 100%;
+  width: 90%;
   padding: 10px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -44,10 +44,6 @@
   font-size: 0.95rem;
   color: #111827;
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
-  min-height: 42px;
-  line-height: 1.4;
-  box-sizing: border-box;
-  display: block;
 }
 
 .form-container input:focus,
@@ -56,12 +52,6 @@
   outline: none;
   border-color: #6366f1;
   box-shadow: 0 0 0 4px rgba(99,102,241,0.06);
-}
-
-/* الحقول الطويلة */
-.form-container textarea {
-  resize: vertical;
-  min-height: 80px;
 }
 
 /* أخطاء الحقول */
@@ -74,19 +64,15 @@
   padding-left: 0;
 }
 
-/* تنسيق الصفوف والأعمدة للفورم */
+/* تخطيط الأعمدة */
 .form-row {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-wrap: wrap;
 }
-
 .form-col {
-  flex: 1 1 calc(50% - 8px);
-  min-width: 260px;
-  box-sizing: border-box;
+  flex: 1 1 48%;
+  min-width: 220px;
 }
 
 /* الصورة */

@@ -48,7 +48,7 @@ from .import functions
 def subject_detail_view(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     students = Student.objects.filter(classroom=subject.classroom)
-    grades = Grade.objects.filter(grade_fo_subject=subject)
+    grades = Grade.objects.filter(subject=subject)
     heads = []
     for gr in grades:
         #n = Month.objects.filter(grade_by_month=gr)
@@ -59,7 +59,7 @@ def subject_detail_view(request, subject_id):
     for student in students:
 
 
-        row = [student] + list(Grade.objects.filter(grade_fo_subject=subject, grade_fo_student=student))
+        row = [student] + list(Grade.objects.filter(subject=subject, student=student))
         row = functions.stariting(heads, row, "0")
         rows.append(row)
     return render(request, 'subject_detail.html', {
@@ -76,7 +76,7 @@ def edit_grade(request, student_id, subject_id, month_id):
     student = get_object_or_404(Student, id=student_id)
     subject = get_object_or_404(Subject, id=subject_id)
     month = get_object_or_404(Month, id=month_id)
-    grade = get_object_or_404(Grade, grade_fo_student=student, grade_fo_subject=subject, month=month)
+    grade = get_object_or_404(Grade, student=student, subject=subject, month=month)
     if request.method == 'POST':
         form = forms.GradeForm(request.POST, request.FILES, instance=grade)
         print(form.errors)
@@ -109,14 +109,14 @@ def edit_all_grades(request, student_id):
         for month in months:
             for sub in subjects:
                 Grade.objects.get_or_create(
-                    grade_fo_student=student,
+                    student=student,
                     month=month,
-                    grade_fo_subject=sub,
+                    subject=sub,
                     defaults={'value': 0}
                 )
     
     # إعادة جلب جميع الدرجات بعد الإنشاء
-    grades = Grade.objects.filter(grade_fo_student=student).select_related('month', 'grade_fo_subject').order_by('month__id', 'grade_fo_subject__id')
+    grades = Grade.objects.filter(student=student).select_related('month', 'subject').order_by('month__id', 'subject__id')
     
     # formset جاهز لكل الدرجات
     GradeFormSet = modelformset_factory(Grade, form=forms.GradeForm, extra=0)
