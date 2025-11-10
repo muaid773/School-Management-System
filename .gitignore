@@ -25,3 +25,5 @@ Thumbs.db
 #auther
 convert_md_to_html.py
 README.html
+populate_db.py
+/media/

@@ -132,19 +132,30 @@
     <thead>
         <tr>
             <th>رقم المعرف</th>
+            <th>الصورة</th>
             <th>الاسم</th>
+            <th>البريد الإلكتروني</th>
             <th>رقم الهاتف</th>
-            <th>المادة</th>
+            <th>التخصص</th>
             <th>نشط</th>
+            <th>ملاحظات</th>
         </tr>
     </thead>
     <tbody>
         {% for teacher in teachers %}
         <tr>
-            <td>{{teacher.teacher_id}}</td>
-            <td>{{teacher.name}}</td>
-            <td>{{teacher.phone}}</td>
-            <td>{{teacher.subject}}</td>
+            <td>{{ teacher.teacher_id }}</td>
+            <td>
+                {% if teacher.photo %}
+                    <img src="{{ teacher.photo.url }}" alt="{{ teacher.name }}" width="50" style="border-radius: 50%;">
+                {% else %}
+                    لا توجد صورة
+                {% endif %}
+            </td>
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.phone|default:"-" }}</td>
+            <td>{{ teacher.specialty|default:"-" }}</td>
             <td>
                 {% if teacher.is_active %}
                     ✅
@@ -152,9 +163,12 @@
                     ❌
                 {% endif %}
             </td>
+            <td>{{ teacher.bio|truncatechars:30|default:"-" }}</td>
         </tr>
         {% empty %}
-        <tr><td colspan="5">لاتوجد بيانات مدرسين مسجلة.</td></tr>
+        <tr>
+            <td colspan="8" style="text-align:center;">لا توجد بيانات مدرسين مسجلة.</td>
+        </tr>
         {% endfor %}
     </tbody>
 </table>

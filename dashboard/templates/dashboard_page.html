@@ -13,8 +13,7 @@
 <div class="dashboard-cards">
   <div class="card">
     <h3>👩‍🎓 عدد الطلاب</h3>
-    <p>{{ stats.students_total|default:"0" }}</p>
-    <small>طلاب جدد اليوم: {{ stats.students_new_today|default:"0" }}</small>
+    <p>{{ students|default:"0" }}</p>
   </div>
 
   <div class="card">

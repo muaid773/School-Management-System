@@ -4,7 +4,7 @@
 
 /* الحاوية العامة للفورم */
 .form-container {
-  max-width: 900px;
+  max-width: 90%;
   margin: 20px auto;
   background: #ffffff;
   border-radius: 10px;
@@ -36,7 +36,7 @@
 .form-container input[type="file"],
 .form-container select,
 .form-container textarea {
-  width: 100%;
+  width: 90%;
   padding: 10px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;

@@ -91,7 +91,7 @@
                     {% for month in months %}
                         <td>
                             {% for form in formset.forms %}
-                                {% if form.instance.month.id == month.id and form.instance.grade_fo_subject.id == sub.id %}
+                                {% if form.instance.month.id == month.id and form.instance.subject.id == sub.id %}
                                     {{ form }}
                                 {% endif %}
                             {% endfor %}
